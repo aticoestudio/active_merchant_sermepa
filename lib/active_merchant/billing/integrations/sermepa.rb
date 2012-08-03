@@ -20,8 +20,7 @@ module ActiveMerchant #:nodoc:
         mattr_accessor :operations_production_url
         self.operations_production_url = "https://sis.sermepa.es/sis/operaciones"
 
-
-        def self.service_url 
+        def self.service_url
           mode = ActiveMerchant::Billing::Base.integration_mode
           case mode
           when :production
@@ -50,7 +49,6 @@ module ActiveMerchant #:nodoc:
           Notification.new(post)
         end
 
-
         def self.currency_code( name )
           row = supported_currencies.assoc(name)
           row.nil? ? supported_currencies.first[1] : row[1]
@@ -75,9 +73,10 @@ module ActiveMerchant #:nodoc:
           row = supported_transactions.assoc(name.to_sym)
           row.nil? ? supported_transactions.first[1] : row[1]
         end
+
         def self.transaction_from_code(code)
           row = supported_transactions.rassoc(code.to_s)
-          row.nil? ? supported_languages.first[0] : row[0]
+          row.nil? ? supported_transactions.first[0] : row[0]
         end
 
         def self.supported_currencies
